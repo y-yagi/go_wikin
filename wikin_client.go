@@ -18,7 +18,7 @@ func authInfo() string {
 	return base64.StdEncoding.EncodeToString([]byte(user + ":" + password))
 }
 
-func get() {
+func get() string {
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("Authorization", "Basic "+authInfo())
 
@@ -28,17 +28,17 @@ func get() {
 	if err != nil {
 		fmt.Println("connect error\n")
 		fmt.Println(err)
-		return
+		return ""
 	}
 
 	byteArray, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println("read error\n")
 		fmt.Println(err)
-		return
+		return ""
 	}
 
-	fmt.Println(string(byteArray))
+	return string(byteArray)
 }
 
 func main() {
